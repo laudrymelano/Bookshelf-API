@@ -75,7 +75,7 @@ const saveBookHandler = (request, h) => {
     }
 
         const response = h.response({
-            status: 'fail',
+            status: 'error',
             message: 'Buku gagal ditambahkan',
           });
           response.code(500);
@@ -210,6 +210,13 @@ const editBookByIdHandler = (request, h) => {
     }
 
     const updatedAt = new Date().toISOString();
+    let finished;
+
+    if (pageCount === readPage){ 
+        finished = true;
+    }else{
+        finished = false;
+    }
    
     const index = books.findIndex((book) => book.id === bookId);
    
@@ -223,7 +230,8 @@ const editBookByIdHandler = (request, h) => {
         publisher,
         pageCount,
         readPage,
-        reading, 
+        reading,
+        finished, 
         updatedAt,
       };
    
